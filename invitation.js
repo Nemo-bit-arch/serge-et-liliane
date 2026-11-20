@@ -1,0 +1,101 @@
+const envelope = document.querySelector('#envelope');
+const opener = document.querySelector('#open-letter');
+let exitTimer;
+function finishOpening() {
+  clearTimeout(exitTimer);
+  envelope.close();
+  envelope.classList.remove('unsealing');
+  opener.removeAttribute('aria-disabled');
+  const section = document.getElementById(location.hash.slice(1));
+  const heading = section?.querySelector('h1, h2') ?? document.querySelector('#names');
+  heading.tabIndex = -1;
+  heading.focus({preventScroll: true});
+  if (section && section.id !== 'accueil') {
+    section.scrollIntoView({behavior: 'instant', block: 'start'});
+  } else {
+    window.scrollTo({top: 0, behavior: 'instant'});
+  }
+}
+if (typeof envelope.showModal === 'function') {
+  const navigation = performance.getEntriesByType?.('navigation')[0];
+  if (!location.hash || location.hash === '#accueil' || navigation?.type === 'reload') {
+    envelope.showModal();
+    opener.focus({preventScroll: true});
+  }
+  opener.addEventListener('click', () => {
+    if (envelope.classList.contains('unsealing')) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return finishOpening();
+    opener.setAttribute('aria-disabled','true');
+    envelope.classList.add('unsealing');
+    exitTimer = setTimeout(finishOpening, 2090);
+  });
+  document.querySelector('#skip-letter').addEventListener('click', finishOpening);
+  envelope.addEventListener('cancel', event => { event.preventDefault(); finishOpening(); });
+}
+const form = document.querySelector('#book-form');
+const feedback = document.querySelector('#book-feedback');
+const list = document.querySelector('#book-list');
+const more = document.querySelector('#more-notes');
+const showed = new Set();
+let nextPage = '';
+let loading = false;
+let submissionId;
+function showNote(entry, prepend = false) {
+  if (showed.has(entry.id)) return;
+  showed.add(entry.id);
+  const article = document.createElement('article');
+  if (entry.name) {
+  const name = document.createElement('strong');
+  name.textContent = entry.name;
+  article.append(name);
+  }
+  if (entry.note) {
+    const note = document.createElement('p');
+    note.textContent = entry.note;
+    article.append(note);
+  }
+  if (prepend) list.prepend(article); else list.append(article);
+  list.parentElement.hidden = false;
+}
+async function loadNotes() {
+  if (loading) return;
+  loading = true;
+  more.disabled = true;
+  try {
+    const response = await fetch('https://serge-et-liliane-2027.statelycrest9.chatgpt.site/api/livre-or?cursor='+encodeURIComponent(nextPage));
+    if (!response.ok) throw Error();
+    const page = await response.json();
+    page.entries.forEach(entry => showNote(entry));
+    nextPage = page.cursor || '';
+    more.hidden = !nextPage;
+    more.textContent = 'Voir les messages suivants';
+  } catch {
+    list.parentElement.hidden = false;
+    more.hidden = false;
+    more.textContent = 'Réessayer de charger les messages';
+  } finally { more.disabled = false; loading = false; }
+}
+more.addEventListener('click',loadNotes);
+loadNearSection(document.querySelector('#livre-or'), loadNotes);
+form.addEventListener('input', () => { submissionId = undefined; });
+form.addEventListener('submit', async event => {
+  event.preventDefault();
+  const data = new FormData(form);
+  const note=data.get('note').trim();
+  if (!note) { feedback.textContent='Écrivez quelques mots avant d’envoyer votre message.'; return; }
+  if (!submissionId) submissionId = (9999999999999-Date.now())+'-'+crypto.randomUUID();
+
+  form.querySelectorAll('input,textarea,button').forEach(el => el.disabled = true);
+  feedback.textContent='Enregistrement en cours…';
+  try {
+    const response = await fetch('https://serge-et-liliane-2027.statelycrest9.chatgpt.site/api/livre-or', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:submissionId,note})});
+    const result = await response.json();
+    if (!response.ok) throw Error(result.error || 'Enregistrement impossible.');
+    showNote(result,true);
+    form.reset();
+    submissionId = undefined;
+    feedback.textContent='Merci, votre souvenir a été ajouté au livre d’or.';
+  } catch(error) {
+    feedback.textContent = error instanceof SyntaxError || error instanceof TypeError ? 'Envoi interrompu. Votre message est toujours ici, vous pouvez réessayer.' : error.message;
+  } finally { form.querySelectorAll('input,textarea,button').forEach(el => el.disabled = false); }
+});

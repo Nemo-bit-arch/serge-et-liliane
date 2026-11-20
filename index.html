@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#281b18">
+<title>Serge & Liliane — 13 février 2027</title>
+<meta name="description" content="C. Serge ABESSOLO et P. Liliane BRUNEAU vous invitent à célébrer leur mariage traditionnel, le samedi 13 février 2027 à 11 h à l’École Normale.">
+<link rel="icon" href="assets/monogramme.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="style.css">
+<link rel="preload" href="assets/feuilles-bleues-motif.webp" as="image">
+<link rel="preload" href="assets/feuilles-rouges-motif.webp" as="image">
+<link rel="stylesheet" href="invitation.css">
+<script src="app.js" defer></script>
+<script src="invitation.js" defer></script>
+<script src="album.js" defer></script>
+</head>
+<body>
+<svg class="symbols" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+<symbol id="calendar" viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="15" rx="2"/><path d="M7.5 3v5m9-5v5M4 10.5h16m-12 4h2m4 0h2"/></symbol>
+<symbol id="pin" viewBox="0 0 24 24"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.4"/></symbol>
+<symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 6.5V12l4 2"/></symbol>
+<symbol id="rings" viewBox="0 0 24 24"><circle cx="8.5" cy="13.5" r="6"/><circle cx="15.5" cy="13.5" r="6"/><path d="m10 5 2-2 2 2"/></symbol>
+<symbol id="weave" viewBox="0 0 24 24"><path d="m12 2 10 10-10 10L2 12Zm0 5 5 5-5 5-5-5Z"/></symbol>
+<symbol id="zoom" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6.5"/><path d="m15 15 5 5m-13-10h6m-3-3v6"/></symbol>
+</defs></svg>
+<a href="#contenu" class="skip">Aller au contenu</a>
+<header class="header">
+<div class="bar">
+<a class="brand" href="#accueil" aria-label="Serge et Liliane, accueil">S<span>&</span>L</a><span class="brand-date">13.02.2027</span>
+<nav id="navigation" aria-label="Navigation principale"><a href="#accueil" aria-current="location">Accueil</a><a href="#ceremonie">La cérémonie</a><a href="#portraits">Galerie</a><a href="#pagnes">Les pagnes</a><a href="#livre-or">Livre d’or</a></nav>
+<a href="mariage.ics" download class="save"><svg><use href="#calendar"/></svg>Retenir la date</a>
+<button class="menu" aria-expanded="false" aria-controls="navigation" aria-label="Ouvrir le menu"><i></i><i></i><i></i></button>
+</div></header>
+<dialog id="envelope" aria-labelledby="cover-title">
+  <div class="cover-stage">
+    <p class="cover-line"><span></span>Mariage traditionnel<span></span></p>
+    <h2 id="cover-title">Serge <i>&amp;</i> Liliane</h2>
+    <p class="cover-date">13 février 2027</p>
+    <button id="open-letter" type="button" aria-label="Ouvrir le faire-part de Serge et Liliane">
+      <span class="envelope-model" aria-hidden="true">
+        <span class="envelope-back"></span>
+        <span class="envelope-lining"></span>
+        <span class="envelope-paper"><i>S &amp; L</i><span>13 · 02 · 27</span></span>
+        <span class="envelope-pocket"></span>
+        <span class="envelope-flap"><span class="flap-front"></span><span class="flap-lining"></span></span>
+        <span class="seal"><span>S<i>&amp;</i>L</span></span>
+        <span class="paper-butterfly"><i></i><b></b></span>
+      </span>
+      <span class="open-caption">Ouvrir le faire-part</span>
+    </button>
+    <button type="button" id="skip-letter">Accéder directement à l’invitation</button>
+  </div>
+</dialog>
+<main id="contenu">
+<section class="hero" id="accueil" aria-labelledby="names">
+<div class="hero-fabric" aria-hidden="true"></div>
+<img class="portrait" src="assets/serge-liliane.webp" srcset="assets/serge-liliane-720.webp 720w, assets/serge-liliane-1080.webp 1080w, assets/serge-liliane.webp 1536w" sizes="(max-width: 650px) 100vw, 67vw" alt="Portrait de mariage illustré de Serge et Liliane, portant les pagnes à feuilles bleues et rouges." width="1536" height="1024" decoding="async">
+<div class="hero-shade"></div>
+<div class="wrap hero-inner">
+<div class="hero-copy">
+<p class="kicker light"><span class="rule"></span>Mariage traditionnel</p>
+<h1 id="names">Serge <em>&amp;</em><br><i>Liliane</i></h1>
+<p class="hero-names">C. Serge ABESSOLO <span>·</span> P. Liliane BRUNEAU</p>
+<div class="hero-info"><span><svg><use href="#calendar"/></svg>13 février 2027</span><b aria-hidden="true"></b><span><svg><use href="#pin"/></svg>École Normale</span></div>
+<div class="actions"><a class="btn gold" href="#ceremonie"><svg><use href="#rings"/></svg>La cérémonie</a><a class="btn ghost" href="#pagnes"><svg><use href="#weave"/></svg>Les pagnes</a></div>
+</div></div></section>
+<div class="ribbon" aria-hidden="true"><i></i><i></i></div>
+<section class="ceremony" id="ceremonie" aria-labelledby="ceremony-title">
+<div class="wrap invitation">
+<div class="letter">
+<div class="cipher" aria-hidden="true"><span>S</span><i>L</i></div>
+<p class="kicker"><span class="rule"></span>Notre invitation</p>
+<h2 id="ceremony-title">Chères familles,<br><i>chers amis,</i></h2>
+<p>Que vous nous connaissiez depuis toujours ou depuis peu, vous avez votre place à nos côtés. Le 13 février, nous réunissons nos familles et nos amis pour célébrer notre mariage traditionnel. Nous avons hâte de vous retrouver.</p>
+<p class="signature">Serge <i>&amp;</i> Liliane</p>
+</div>
+<div class="occasion">
+<p class="kicker light"><span class="rule"></span>La cérémonie<span class="rule reverse"></span></p>
+<p class="day">Samedi</p>
+<p class="date-display"><time datetime="2027-02-13">13 <i>février</i></time><span>2027</span></p>
+<div class="mini-month" aria-hidden="true"><span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b><b>8</b><b>9</b><b>10</b><b>11</b><b>12</b><b class="wedding-day">13</b><b>14</b><b>15</b><b>16</b><b>17</b><b>18</b><b>19</b><b>20</b><b>21</b><b>22</b><b>23</b><b>24</b><b>25</b><b>26</b><b>27</b><b>28</b></div>
+<div class="occasion-info"><span><svg><use href="#clock"/></svg>11 heures</span><span><svg><use href="#pin"/></svg>École Normale</span></div>
+<a class="calendar-link" href="mariage.ics" download><svg><use href="#calendar"/></svg>Ajouter à mon calendrier</a>
+</div></div></section>
+<section class="album" id="portraits" aria-labelledby="album-title"><div class="wrap">
+  <p class="kicker"><span class="rule"></span>Galerie</p>
+  <h2 id="album-title">Notre <i>album</i></h2>
+  <p class="album-intro">Un sourire que vous reconnaissez, un regard qui vous rappelle un souvenir… Chacun de vous connaît une petite part de notre histoire.</p>
+  <div class="album-photos" id="album-photos">
+    <button type="button" class="album-photo" aria-haspopup="dialog" aria-label="Agrandir le portrait de Serge en chemise blanche"><img src="assets/serge-blanc.webp" loading="lazy" width="776" height="1080" alt="Serge en chemise blanche"></button>
+    <button type="button" class="album-photo" aria-haspopup="dialog" aria-label="Agrandir le portrait de Liliane en bleu ciel"><img src="assets/liliane-bleu.webp" loading="lazy" width="850" height="1080" alt="Liliane en bleu ciel"></button>
+    <button type="button" class="album-photo" aria-haspopup="dialog" aria-label="Agrandir le portrait de Serge en chemise orange"><img src="assets/serge-orange.webp" loading="lazy" width="771" height="1080" alt="Serge en chemise orange"></button>
+    <button type="button" class="album-photo" aria-haspopup="dialog" aria-label="Agrandir le portrait de Liliane en jaune"><img src="assets/liliane-jaune.webp" loading="lazy" width="754" height="1080" alt="Liliane en jaune"></button>
+  </div>
+</div></section>
+<section class="pagnes" id="pagnes" aria-labelledby="pagnes-title"><div class="wrap">
+<div class="pagne-intro"><div><p class="kicker"><span class="rule"></span>Les couleurs du mariage</p><h2 id="pagnes-title">Les pagnes <i>de famille</i></h2></div><p>Sur nos pagnes pousse le même feuillage, bleu pour Serge, rouge pour Liliane. Quand nos deux familles se prendront par la main, tout un jardin se mettra à danser.</p></div>
+<div class="swatches">
+<button class="swatch blue" data-fabric="feuilles-bleues" aria-haspopup="dialog"><img src="assets/feuilles-bleues-motif.webp" alt="" loading="lazy" width="768" height="1024"><span class="fabric-copy"><small>Famille du marié</small><strong>Le pagne <em>bleu</em></strong></span><span class="zoom"><svg><use href="#zoom"/></svg><span class="sr">Agrandir le tissu</span></span></button>
+<button class="swatch red" data-fabric="feuilles-rouges" aria-haspopup="dialog"><img src="assets/feuilles-rouges-motif.webp" alt="" loading="lazy" width="768" height="1024"><span class="fabric-copy"><small>Famille de la mariée</small><strong>Le pagne <em>rouge</em></strong></span><span class="zoom"><svg><use href="#zoom"/></svg><span class="sr">Agrandir le tissu</span></span></button>
+</div></div></section>
+<section class="guestbook" id="livre-or" aria-labelledby="book-title">
+  <div class="wrap book-grid">
+    <div class="book-intro"><p class="kicker"><span class="rule"></span>Livre d’or</p>
+      <h2 id="book-title">Un mot <i>pour nous</i></h2>
+      <p>Un souvenir partagé, un souhait pour la suite ou simplement quelques mots de vous. Nous aurons plaisir à les relire ensemble après la fête.</p>
+    </div>
+    <form id="book-form">
+      <label for="guest-note">Votre message</label><textarea id="guest-note" name="note" required rows="3" maxlength="420" placeholder="Je me souviens…"></textarea>
+      <p class="book-hint">Votre message sera visible par les personnes qui ont accès au faire-part. Vous pouvez le signer dans le texte si vous le souhaitez.</p>
+      <button class="btn book-send" type="submit">Laisser mon message</button><p id="book-feedback" role="status"></p>
+    </form>
+    <div class="book-messages" hidden><h3>Les mots des proches</h3><div id="book-list"></div><button type="button" id="more-notes" hidden>Voir les messages suivants</button></div>
+  </div>
+</section></main>
+<footer><div class="closing"><div class="cipher" aria-hidden="true"><span>S</span><i>L</i></div><p>Merci de faire partie de cette journée,</p><a href="#accueil" aria-label="Serge et Liliane, retour à l’accueil">Serge <em>&amp;</em> Liliane</a></div></footer>
+<dialog id="fabric-dialog" aria-labelledby="fabric-name"><button class="close" aria-label="Fermer">×</button><img alt="" id="fabric-image" width="768" height="1024"><div><p id="fabric-family"></p><h2 id="fabric-name"></h2></div></dialog>
+</body></html>
