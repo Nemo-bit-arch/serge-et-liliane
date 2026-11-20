@@ -13,26 +13,10 @@
 <link rel="preload" href="assets/feuilles-rouges-motif.webp" as="image">
 <link rel="stylesheet" href="invitation.css">
 <script src="app.js" defer></script>
-<script src="invitation.js" defer></script>
+<script src="invitation.js?v=2" defer></script>
 <script src="album.js" defer></script>
 </head>
 <body>
-<svg class="symbols" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
-<symbol id="calendar" viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="15" rx="2"/><path d="M7.5 3v5m9-5v5M4 10.5h16m-12 4h2m4 0h2"/></symbol>
-<symbol id="pin" viewBox="0 0 24 24"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.4"/></symbol>
-<symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 6.5V12l4 2"/></symbol>
-<symbol id="rings" viewBox="0 0 24 24"><circle cx="8.5" cy="13.5" r="6"/><circle cx="15.5" cy="13.5" r="6"/><path d="m10 5 2-2 2 2"/></symbol>
-<symbol id="weave" viewBox="0 0 24 24"><path d="m12 2 10 10-10 10L2 12Zm0 5 5 5-5 5-5-5Z"/></symbol>
-<symbol id="zoom" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6.5"/><path d="m15 15 5 5m-13-10h6m-3-3v6"/></symbol>
-</defs></svg>
-<a href="#contenu" class="skip">Aller au contenu</a>
-<header class="header">
-<div class="bar">
-<a class="brand" href="#accueil" aria-label="Serge et Liliane, accueil">S<span>&</span>L</a><span class="brand-date">13.02.2027</span>
-<nav id="navigation" aria-label="Navigation principale"><a href="#accueil" aria-current="location">Accueil</a><a href="#ceremonie">La cérémonie</a><a href="#portraits">Galerie</a><a href="#pagnes">Les pagnes</a><a href="#livre-or">Livre d’or</a></nav>
-<a href="mariage.ics" download class="save"><svg><use href="#calendar"/></svg>Retenir la date</a>
-<button class="menu" aria-expanded="false" aria-controls="navigation" aria-label="Ouvrir le menu"><i></i><i></i><i></i></button>
-</div></header>
 <dialog id="envelope" aria-labelledby="cover-title">
   <div class="cover-stage">
     <p class="cover-line"><span></span>Mariage traditionnel<span></span></p>
@@ -53,6 +37,63 @@
     <button type="button" id="skip-letter">Accéder directement à l’invitation</button>
   </div>
 </dialog>
+<script>
+// Show the cover before the parser reaches the invitation behind it.
+(() => {
+  const envelope = document.querySelector('#envelope');
+  const opener = document.querySelector('#open-letter');
+  let exitTimer;
+  function finishOpening() {
+    clearTimeout(exitTimer);
+    envelope.close();
+    envelope.classList.remove('unsealing');
+    opener.removeAttribute('aria-disabled');
+    const section = document.getElementById(location.hash.slice(1));
+    const heading = section?.querySelector('h1, h2') ?? document.querySelector('#names');
+    if (heading) {
+      heading.tabIndex = -1;
+      heading.focus({preventScroll: true});
+    }
+    if (section && section.id !== 'accueil') {
+      section.scrollIntoView({behavior: 'instant', block: 'start'});
+    } else {
+      window.scrollTo({top: 0, behavior: 'instant'});
+    }
+  }
+  if (typeof envelope.showModal === 'function') {
+    const navigation = performance.getEntriesByType?.('navigation')[0];
+    if (!location.hash || location.hash === '#accueil' || navigation?.type === 'reload') {
+      envelope.showModal();
+      opener.focus({preventScroll: true});
+    }
+    opener.addEventListener('click', () => {
+      if (envelope.classList.contains('unsealing')) return;
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return finishOpening();
+      opener.setAttribute('aria-disabled','true');
+      envelope.classList.add('unsealing');
+      exitTimer = setTimeout(finishOpening, 2090);
+    });
+    document.querySelector('#skip-letter').addEventListener('click', finishOpening);
+    envelope.addEventListener('cancel', event => { event.preventDefault(); finishOpening(); });
+  }
+})();
+</script>
+<svg class="symbols" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+<symbol id="calendar" viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="15" rx="2"/><path d="M7.5 3v5m9-5v5M4 10.5h16m-12 4h2m4 0h2"/></symbol>
+<symbol id="pin" viewBox="0 0 24 24"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.4"/></symbol>
+<symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 6.5V12l4 2"/></symbol>
+<symbol id="rings" viewBox="0 0 24 24"><circle cx="8.5" cy="13.5" r="6"/><circle cx="15.5" cy="13.5" r="6"/><path d="m10 5 2-2 2 2"/></symbol>
+<symbol id="weave" viewBox="0 0 24 24"><path d="m12 2 10 10-10 10L2 12Zm0 5 5 5-5 5-5-5Z"/></symbol>
+<symbol id="zoom" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6.5"/><path d="m15 15 5 5m-13-10h6m-3-3v6"/></symbol>
+</defs></svg>
+<a href="#contenu" class="skip">Aller au contenu</a>
+<header class="header">
+<div class="bar">
+<a class="brand" href="#accueil" aria-label="Serge et Liliane, accueil">S<span>&</span>L</a><span class="brand-date">13.02.2027</span>
+<nav id="navigation" aria-label="Navigation principale"><a href="#accueil" aria-current="location">Accueil</a><a href="#ceremonie">La cérémonie</a><a href="#portraits">Galerie</a><a href="#pagnes">Les pagnes</a><a href="#livre-or">Livre d’or</a></nav>
+<a href="mariage.ics" download class="save"><svg><use href="#calendar"/></svg>Retenir la date</a>
+<button class="menu" aria-expanded="false" aria-controls="navigation" aria-label="Ouvrir le menu"><i></i><i></i><i></i></button>
+</div></header>
 <main id="contenu">
 <section class="hero" id="accueil" aria-labelledby="names">
 <div class="hero-fabric" aria-hidden="true"></div>

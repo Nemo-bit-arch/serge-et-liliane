@@ -1,37 +1,3 @@
-const envelope = document.querySelector('#envelope');
-const opener = document.querySelector('#open-letter');
-let exitTimer;
-function finishOpening() {
-  clearTimeout(exitTimer);
-  envelope.close();
-  envelope.classList.remove('unsealing');
-  opener.removeAttribute('aria-disabled');
-  const section = document.getElementById(location.hash.slice(1));
-  const heading = section?.querySelector('h1, h2') ?? document.querySelector('#names');
-  heading.tabIndex = -1;
-  heading.focus({preventScroll: true});
-  if (section && section.id !== 'accueil') {
-    section.scrollIntoView({behavior: 'instant', block: 'start'});
-  } else {
-    window.scrollTo({top: 0, behavior: 'instant'});
-  }
-}
-if (typeof envelope.showModal === 'function') {
-  const navigation = performance.getEntriesByType?.('navigation')[0];
-  if (!location.hash || location.hash === '#accueil' || navigation?.type === 'reload') {
-    envelope.showModal();
-    opener.focus({preventScroll: true});
-  }
-  opener.addEventListener('click', () => {
-    if (envelope.classList.contains('unsealing')) return;
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return finishOpening();
-    opener.setAttribute('aria-disabled','true');
-    envelope.classList.add('unsealing');
-    exitTimer = setTimeout(finishOpening, 2090);
-  });
-  document.querySelector('#skip-letter').addEventListener('click', finishOpening);
-  envelope.addEventListener('cancel', event => { event.preventDefault(); finishOpening(); });
-}
 const form = document.querySelector('#book-form');
 const feedback = document.querySelector('#book-feedback');
 const list = document.querySelector('#book-list');
