@@ -10,11 +10,9 @@ function showNote(entry, prepend = false) {
   if (showed.has(entry.id)) return;
   showed.add(entry.id);
   const article = document.createElement('article');
-  if (entry.name) {
-  const name = document.createElement('strong');
-  name.textContent = entry.name;
-  article.append(name);
-  }
+  const signature = document.createElement('strong');
+  signature.textContent = entry.name || 'Message non signé';
+  article.append(signature);
   if (entry.note) {
     const note = document.createElement('p');
     note.textContent = entry.note;
@@ -47,6 +45,12 @@ form.addEventListener('input', () => { submissionId = undefined; });
 form.addEventListener('submit', async event => {
   event.preventDefault();
   const data = new FormData(form);
+  const name = data.get('name').trim();
+  if (!name) {
+    feedback.textContent = 'Indiquez votre prénom ou votre nom pour signer votre message.';
+    form.elements.namedItem('name').focus();
+    return;
+  }
   const note=data.get('note').trim();
   if (!note) { feedback.textContent='Écrivez quelques mots avant d’envoyer votre message.'; return; }
   if (!submissionId) submissionId = (9999999999999-Date.now())+'-'+crypto.randomUUID();
@@ -54,7 +58,7 @@ form.addEventListener('submit', async event => {
   form.querySelectorAll('input,textarea,button').forEach(el => el.disabled = true);
   feedback.textContent='Enregistrement en cours…';
   try {
-    const response = await fetch('https://serge-et-liliane-2027.statelycrest9.chatgpt.site/api/livre-or', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:submissionId,note})});
+    const response = await fetch('https://serge-et-liliane-2027.statelycrest9.chatgpt.site/api/livre-or', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:submissionId,name,note})});
     const result = await response.json();
     if (!response.ok) throw Error(result.error || 'Enregistrement impossible.');
     showNote(result,true);

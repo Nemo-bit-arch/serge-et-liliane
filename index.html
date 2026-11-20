@@ -13,7 +13,7 @@
 <link rel="preload" href="assets/feuilles-rouges-motif.webp" as="image">
 <link rel="stylesheet" href="invitation.css">
 <script src="app.js" defer></script>
-<script src="invitation.js?v=2" defer></script>
+<script src="invitation.js?v=3" defer></script>
 <script src="album.js" defer></script>
 </head>
 <body>
@@ -149,8 +149,10 @@
       <p>Un souvenir partagé, un souhait pour la suite ou simplement quelques mots de vous. Nous aurons plaisir à les relire ensemble après la fête.</p>
     </div>
     <form id="book-form">
+      <label for="guest-name">Votre prénom ou nom</label>
+      <input id="guest-name" name="name" type="text" autocomplete="name" maxlength="80" required>
       <label for="guest-note">Votre message</label><textarea id="guest-note" name="note" required rows="3" maxlength="420" placeholder="Je me souviens…"></textarea>
-      <p class="book-hint">Votre message sera visible par les personnes qui ont accès au faire-part. Vous pouvez le signer dans le texte si vous le souhaitez.</p>
+      <p class="book-hint">Votre signature apparaîtra avec votre message dans le livre d’or.</p>
       <button class="btn book-send" type="submit">Laisser mon message</button><p id="book-feedback" role="status"></p>
     </form>
     <div class="book-messages" hidden><h3>Les mots des proches</h3><div id="book-list"></div><button type="button" id="more-notes" hidden>Voir les messages suivants</button></div>
