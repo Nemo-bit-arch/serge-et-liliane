@@ -2,6 +2,8 @@ const form = document.querySelector('#book-form');
 const feedback = document.querySelector('#book-feedback');
 const list = document.querySelector('#book-list');
 const more = document.querySelector('#more-notes');
+const emptyBook = document.querySelector('#book-empty');
+document.querySelector('#write-first-note').addEventListener('click', () => form.elements.namedItem('name').focus());
 const showed = new Set();
 let nextPage = '';
 let loading = false;
@@ -10,14 +12,16 @@ function showNote(entry, prepend = false) {
   if (showed.has(entry.id)) return;
   showed.add(entry.id);
   const article = document.createElement('article');
+  article.className = 'book-card';
   const signature = document.createElement('strong');
   signature.textContent = entry.name || 'Message non signé';
-  article.append(signature);
   if (entry.note) {
     const note = document.createElement('p');
     note.textContent = entry.note;
     article.append(note);
   }
+  article.append(signature);
+  emptyBook.hidden = true;
   if (prepend) list.prepend(article); else list.append(article);
   list.parentElement.hidden = false;
 }
@@ -31,6 +35,8 @@ async function loadNotes() {
     const page = await response.json();
     page.entries.forEach(entry => showNote(entry));
     nextPage = page.cursor || '';
+    list.parentElement.hidden = false;
+    emptyBook.hidden = showed.size > 0 || Boolean(nextPage);
     more.hidden = !nextPage;
     more.textContent = 'Voir les messages suivants';
   } catch {

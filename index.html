@@ -11,9 +11,9 @@
 <link rel="stylesheet" href="style.css">
 <link rel="preload" href="assets/feuilles-bleues-motif.webp" as="image">
 <link rel="preload" href="assets/feuilles-rouges-motif.webp" as="image">
-<link rel="stylesheet" href="invitation.css">
+<link rel="stylesheet" href="invitation.css?v=4">
 <script src="app.js" defer></script>
-<script src="invitation.js?v=3" defer></script>
+<script src="invitation.js?v=4" defer></script>
 <script src="album.js" defer></script>
 </head>
 <body>
@@ -146,7 +146,7 @@
   <div class="wrap book-grid">
     <div class="book-intro"><p class="kicker"><span class="rule"></span>Livre d’or</p>
       <h2 id="book-title">Un mot <i>pour nous</i></h2>
-      <p>Un souvenir partagé, un souhait pour la suite ou simplement quelques mots de vous. Nous aurons plaisir à les relire ensemble après la fête.</p>
+      <p>Un fou rire, un souvenir, un vœu pour demain… Glissez-nous quelques lignes. Une fois la fête passée, nous aurons le bonheur de retrouver un peu de chacun de vous entre ces pages.</p>
     </div>
     <form id="book-form">
       <label for="guest-name">Votre prénom ou nom</label>
@@ -155,7 +155,10 @@
       <p class="book-hint">Votre signature apparaîtra avec votre message dans le livre d’or.</p>
       <button class="btn book-send" type="submit">Laisser mon message</button><p id="book-feedback" role="status"></p>
     </form>
-    <div class="book-messages" hidden><h3>Les mots des proches</h3><div id="book-list"></div><button type="button" id="more-notes" hidden>Voir les messages suivants</button></div>
+    <div class="book-messages" hidden><h3>Les mots des proches</h3><div class="book-empty" id="book-empty" hidden>
+        <p>La première page attend votre plume.</p>
+        <button type="button" id="write-first-note">Écrire le premier mot</button>
+      </div><div id="book-list"></div><button type="button" id="more-notes" hidden>Voir les messages suivants</button></div>
   </div>
 </section></main>
 <footer><div class="closing"><div class="cipher" aria-hidden="true"><span>S</span><i>L</i></div><p>Merci de faire partie de cette journée,</p><a href="#accueil" aria-label="Serge et Liliane, retour à l’accueil">Serge <em>&amp;</em> Liliane</a></div></footer>
